@@ -3,6 +3,7 @@ Brownian Motion Simulation
 
 # What is the Brownian Motion?
 Brownian motion, or pedesis, is the random motion of particles suspended in a medium (a liquid or a gas).
+
 Source: https://www.feynmanlectures.caltech.edu/I_41.html
 
 ![alt text](screenshots/Screenshot_1.jpg)
@@ -18,7 +19,9 @@ Source: https://web.fscj.edu/Milczanowski/psc/lect/Ch4/slide9.htm
 
 # Elastic Collision Model
 The equation used to solve the resultant velocities of the collisions between the molecules is the One-dimensional Newtonian's elastic collision equation expressed by:
-![alt text](screenshots/ac6c6ba32ecc73b38db1e1b120ce1f871577cf21.svg)
+
+![alt text](screenshots/Screenshot_4.jpg)
+
 This way both momentum and kinetic energy are conserved just as the third postulate of kinetic molecular theory describes.
 
 # Collision Detection
@@ -28,6 +31,7 @@ There is only one kind of collision detection that is Circle-Circle detection by
 
 # How to Run it?
 ![alt text](screenshots/Screenshot_3.jpg)
+
 The simplest way is by opening the Visual Studio Solution and clicking on Start, or for better performance you can choose the Release target, build the solution and open the executable file.
 
 # Features
