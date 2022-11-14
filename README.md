@@ -5,7 +5,7 @@ Brownian Motion Simulation
 Brownian motion, or pedesis, is the random motion of particles suspended in a medium (a liquid or a gas).
 Source: https://www.feynmanlectures.caltech.edu/I_41.html
 
-![alt text](screenshots/Screenshot_1.png)
+![alt text](screenshots/Screenshot_1.jpg)
 
 # Gases and the kinetic molecular theory
 The kinetic-molecular theory of gases can be stated as four postulates:
@@ -27,7 +27,7 @@ An enhancemant would be using a better CCD (Continuous Collision Detection) algo
 There is only one kind of collision detection that is Circle-Circle detection by calculating the distance between their centers and checking if the distance is less than the sum of both cicle's radius.
 
 # How to Run it?
-![alt text](screenshots/Screenshot_3.png)
+![alt text](screenshots/Screenshot_3.jpg)
 The simplest way is by opening the Visual Studio Solution and clicking on Start, or for better performance you can choose the Release target, build the solution and open the executable file.
 
 # Features
