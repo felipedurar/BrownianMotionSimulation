@@ -18,9 +18,9 @@ The kinetic-molecular theory of gases can be stated as four postulates:
 Source: https://web.fscj.edu/Milczanowski/psc/lect/Ch4/slide9.htm
 
 # Elastic Collision Model
-The equation used to solve the resultant velocities of the collisions between the molecules is the One-dimensional Newtonian's elastic collision equation expressed by:
+The equation used to solve the resultant velocities of the collisions between the molecules is expressed by:
 
-![alt text](screenshots/Screenshot_4.jpg)
+![alt text](screenshots/Screenshot_5.jpg)
 
 This way both momentum and kinetic energy are conserved just as the third postulate of kinetic molecular theory describes.
 

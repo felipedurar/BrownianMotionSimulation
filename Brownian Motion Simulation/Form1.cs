@@ -117,23 +117,24 @@ namespace Brownian_Motion_Simulation
                             // Ignore if the same
                             if (particleA.Id == particleB.Id) continue;
 
-                            double distance = Math.Sqrt(Math.Pow((particleB.Position.X - particleA.Position.X), 2) + Math.Pow((particleB.Position.Y - particleA.Position.Y), 2));
+                            // Collision Check
+                            double distance = modulusOfVector(particleB.Position.X - particleA.Position.X, particleB.Position.Y - particleA.Position.Y);
                             if (distance <= (particleA.Radius + particleB.Radius))
                             {
+                                //Thread.Sleep(1000);
+
                                 // If the collision was already calculated just ignore this step
                                 if (particleA.CollisionWithIds.Contains(particleB.Id))
                                     continue;
 
                                 // Elastic Collision Calc
-                                PointF particleA_velocity_bkp = new PointF(particleA.Velocity.X, particleA.Velocity.Y);
-                                particleA.Velocity = new PointF(
-                                    (((particleA.Mass - particleB.Mass) / (particleA.Mass + particleB.Mass)) * particleA.Velocity.X) + (((2 * particleB.Mass) / (particleA.Mass + particleB.Mass)) * particleB.Velocity.X),
-                                    (((particleA.Mass - particleB.Mass) / (particleA.Mass + particleB.Mass)) * particleA.Velocity.Y) + (((2 * particleB.Mass) / (particleA.Mass + particleB.Mass)) * particleB.Velocity.Y)
-                                    );
-                                particleB.Velocity = new PointF(
-                                    (((2 * particleA.Mass) / (particleA.Mass + particleB.Mass)) * particleA_velocity_bkp.X) + (((particleB.Mass - particleA.Mass) / (particleA.Mass + particleB.Mass)) * particleB.Velocity.X),
-                                    (((2 * particleA.Mass) / (particleA.Mass + particleB.Mass)) * particleA_velocity_bkp.Y) + (((particleB.Mass - particleA.Mass) / (particleA.Mass + particleB.Mass)) * particleB.Velocity.Y)
-                                    );
+                                // Calc Result Velocities
+                                PointF velResParticleA = calcResultantVelocityOfCollision(particleA.Position, particleB.Position, 
+                                    particleA.Velocity, particleB.Velocity, particleA.Mass, particleB.Mass);
+                                PointF velResParticleB = calcResultantVelocityOfCollision(particleB.Position, particleA.Position,
+                                    particleB.Velocity, particleA.Velocity, particleB.Mass, particleA.Mass);
+                                particleA.Velocity = velResParticleA;
+                                particleB.Velocity = velResParticleB;
 
                                 particleA.CollisionWithIds.Add(particleB.Id);
                                 particleB.CollisionWithIds.Add(particleA.Id);
@@ -180,6 +181,36 @@ namespace Brownian_Motion_Simulation
                 //Thread.Sleep(10);
             }
         }
+
+        private double modulusOfVector(double x, double y)
+            => Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2));
+
+        private double calcVectorAngle(double x, double y)
+            => Math.Atan2(y, x);
+
+        private float calcXVelocityResultOfCollision(double v1, double v2, double m1, double m2, double theta1, double theta2, double phy)
+            => (float)((((v1 * Math.Cos(theta1 - phy) * (m1 - m2)) + (2 * m2 * v2 * Math.Cos(theta2 - phy))) * Math.Cos(phy) / (m1 + m2)) + 
+            ((v1 * Math.Sin(theta1 - phy) * Math.Cos(phy + (Math.PI / 2)))));
+
+        private float calcYVelocityResultOfCollision(double v1, double v2, double m1, double m2, double theta1, double theta2, double phy)
+            => (float)((((v1 * Math.Cos(theta1 - phy) * (m1 - m2)) + (2 * m2 * v2 * Math.Cos(theta2 - phy))) * Math.Sin(phy) / (m1 + m2)) +
+            ((v1 * Math.Sin(theta1 - phy) * Math.Sin(phy + (Math.PI / 2)))));
+
+        private PointF calcResultantVelocityOfCollision(PointF pos1, PointF pos2, PointF vel1, PointF vel2, float mass1, float mass2)
+        {
+            double v1 = modulusOfVector(vel1.X, vel1.Y);
+            double v2 = modulusOfVector(vel2.X, vel2.Y);
+            double theta1 = calcVectorAngle(vel1.X, vel1.Y);
+            double theta2 = calcVectorAngle(vel2.X, vel2.Y);
+            double phy = angleBetweenTwoPoints(pos1, pos2);
+            float xResultVelocity = calcXVelocityResultOfCollision(v1, v2, mass1, mass2, theta1, theta2, phy);
+            float yResultVelocity = calcYVelocityResultOfCollision(v1, v2, mass1, mass2, theta1, theta2, phy);
+            return new PointF(xResultVelocity, yResultVelocity);
+        }
+
+        private double angleBetweenTwoPoints(PointF p1, PointF p2)
+            => calcVectorAngle(p2.X - p1.X, p2.Y - p1.Y);
+
 
         private void timer1_Tick(object sender, EventArgs e)
         {
