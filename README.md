@@ -24,6 +24,8 @@ The equation used to solve the resultant velocities of the collisions between th
 
 This way both momentum and kinetic energy are conserved just as the third postulate of kinetic molecular theory describes.
 
+Source: https://williamecraver.wixsite.com/elastic-equations
+
 # Collision Detection
 The collision detection is realized by checking discrete points on the space, since the particles are very small and their speed used to be quite fast my easiest approach for solving this issue was by subdividing the line segment between every movement and checking the physics for every subdivision.
 An enhancemant would be using a better CCD (Continuous Collision Detection) algorithm for better performance.
